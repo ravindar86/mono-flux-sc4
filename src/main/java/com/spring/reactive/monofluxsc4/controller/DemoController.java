@@ -24,6 +24,12 @@ public class DemoController {
         // will print as 1 2 3 4 5
         // flux.subscribe(p -> System.out.println(p));
 
+        Flux<Object> flux1=Flux.just('A',new NullPointerException(),'B');
+        flux1.subscribe(s -> System.out.println(s));
+
+        flux.doOnNext(c->{throw new RuntimeException("Error");})
+                .subscribe(new DemoSubscriber());
+
         flux.subscribe(new DemoSubscriber());
     }
 }
